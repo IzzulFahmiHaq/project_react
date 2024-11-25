@@ -1,22 +1,22 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import { styled } from '@mui/material/styles';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell, { tableCellClasses } from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
-import Navbar from '../component/Navbar';
-import { useNavigate } from 'react-router-dom';
-import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
-import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
-import AddIcon from "@mui/icons-material/Add";
-import Swal from 'sweetalert2';
-import { Box, Button, Typography } from '@mui/material';
+import React, { useEffect, useState } from 'react'; 
+import axios from 'axios'; 
+import { styled } from '@mui/material/styles'; 
+import Table from '@mui/material/Table'; 
+import TableBody from '@mui/material/TableBody'; 
+import TableCell, { tableCellClasses } from '@mui/material/TableCell'; 
+import TableContainer from '@mui/material/TableContainer'; 
+import TableHead from '@mui/material/TableHead'; 
+import TableRow from '@mui/material/TableRow'; 
+import Paper from '@mui/material/Paper'; 
+import Navbar from '../component/Navbar'; 
+import { useNavigate } from 'react-router-dom'; 
+import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline"; 
+import EditOutlinedIcon from "@mui/icons-material/EditOutlined"; 
+import AddIcon from "@mui/icons-material/Add"; 
+import Swal from 'sweetalert2'; 
+import { Box, Button, Typography, TextField } from '@mui/material'; 
 
-// Styling for table cell
+// Kustomisasi sel tabel
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
     background: '#BDC3C7',
@@ -37,6 +37,7 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
   },
 }));
 
+// Kustomisasi baris tabel
 const StyledTableRow = styled(TableRow)(({ theme }) => ({
   '&:nth-of-type(odd)': {
     backgroundColor: '#F9F9F9',
@@ -47,8 +48,9 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 }));
 
 export default function DataGuru() {
-  const [gurus, setGurus] = useState([]);
-  const navigate = useNavigate();
+  const [gurus, setGurus] = useState([]); 
+  const [searchTerm, setSearchTerm] = useState(""); // State untuk kata kunci pencarian
+  const navigate = useNavigate(); 
 
   useEffect(() => {
     axios.get('http://localhost:3030/Guru')
@@ -60,6 +62,7 @@ export default function DataGuru() {
       });
   }, []);
 
+  // Fungsi untuk menghapus guru berdasarkan ID
   const deleteGuru = (id) => {
     Swal.fire({
       title: 'Are you sure?',
@@ -84,6 +87,13 @@ export default function DataGuru() {
     });
   };
 
+  // Filter data berdasarkan kata kunci pencarian
+  const filteredGurus = gurus.filter(guru => 
+    guru.namaGuru.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    guru.mataPelajaran.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    guru.jabatan.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   return (
     <>
       <Navbar />
@@ -92,21 +102,40 @@ export default function DataGuru() {
           display: "flex",
           justifyContent: "space-between",
           marginBottom: "20px",
-          flexDirection: { xs: 'column', sm: 'row' }, // Stack on small screens
-          alignItems: "center",
         }}
       >
         <Typography
           variant="h4"
           sx={{
+            alignSelf: "center",
             fontWeight: "bold",
             color: '#34495E',
-            marginBottom: { xs: '10px', sm: '0' }, // Space below on small screens
           }}
         >
           Daftar Guru
         </Typography>
 
+        {/* Input Pencarian */}
+        <TextField
+          variant="outlined"
+          placeholder="Cari Guru..."
+          size="small"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)} // Update state pencarian
+          sx={{
+            width: '300px',
+            height: '50px',
+            '& .MuiOutlinedInput-root': {
+              height: '100%',
+            },
+            '& .MuiInputBase-input': {
+              padding: '12px',
+              fontSize: '16px',
+            },
+          }}
+        />
+
+        {/* Tombol untuk menambah data guru */}
         <Button
           variant="contained"
           sx={{
@@ -129,26 +158,16 @@ export default function DataGuru() {
               fontSize: '28px',
               marginRight: '12px',
               color: '#fff',
-              transition: 'color 0.3s ease',
-            }}
-            sx={{
-              '&:hover': {
-                color: '#F39C12',
-              },
             }}
           />
           Tambah
         </Button>
       </Box>
 
+      {/* Menampilkan tabel data guru */}
       <TableContainer
         component={Paper}
-        sx={{
-          marginTop: "20px",
-          padding: 2,
-          maxWidth: "100%",
-          overflowX: "auto", // Make table scrollable on small screens
-        }}
+        sx={{ marginLeft: '240px', width: 'calc(100% - 240px)', padding: 2 }}
       >
         <Table sx={{ minWidth: 700 }} aria-label="customized table">
           <TableHead>
@@ -162,7 +181,7 @@ export default function DataGuru() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {gurus.map((guru, index) => (
+            {filteredGurus.map((guru, index) => (
               <StyledTableRow key={guru.id}>
                 <StyledTableCell component="th" scope="row">
                   {index + 1}

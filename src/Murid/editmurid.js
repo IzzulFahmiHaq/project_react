@@ -69,17 +69,19 @@ export default function EditMurid() {
         alignItems: "center",
         height: "100vh",
         backgroundColor: "#ECF0F1", // Warna latar belakang yang lebih terang
+        padding: 2, // Add padding for better spacing on mobile devices
       }}
     >
       <Paper
         elevation={6}
         sx={{
           p: 4,
-          width: "400px",
+          width: { xs: "100%", sm: "400px" }, // Ensure responsiveness
           display: "flex",
           flexDirection: "column",
           gap: 2,
           backgroundColor: "#2C3E50", // Warna latar belakang form
+          boxShadow: 4, // Adding a subtle box-shadow for better focus
         }}
       >
         <Typography
@@ -152,7 +154,10 @@ export default function EditMurid() {
               variant="contained"
               color="secondary"
               onClick={() => navigate("/Dashboard")}
-              sx={{ backgroundColor: "#F39C12" }} // Warna tombol batal
+              sx={{
+                backgroundColor: "#F39C12", // Warna tombol batal
+                '&:hover': { backgroundColor: "#F39C12" }, // Maintain consistency with hover effect
+              }}
             >
               Batal
             </Button>
