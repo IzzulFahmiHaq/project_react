@@ -1,42 +1,110 @@
-// Dashboard.js
-import React from 'react';
-
-function createData(no, namaMurid, namaGuru) {
-  return { no, namaMurid, namaGuru };
-}
-
-// Data yang digunakan untuk tabel
-const rows = [
-  createData(1, 'M Izzul Fahmi H', 'Bu Wati'),
-  createData(2, 'Maulana D Fahri', 'Bu Hindun'),
-  createData(3, 'M Dimas Saputra', 'Bu Ulfa'),
-  createData(4, 'M Aji Baihaqi', 'Pak Naryo'),
-  createData(5, 'Maulana Saputra', 'Pak Rum')
-];
+import React from "react";
+import { Button, Box, Typography } from "@mui/material";
+import { useNavigate } from "react-router-dom";
+import PeopleIcon from "@mui/icons-material/People";
+import BusinessCenterIcon from "@mui/icons-material/BusinessCenter";
+import Navbar from './component/Navbar';
 
 const Dashboard = () => {
+  const navigate = useNavigate(); // Hook untuk menavigasi ke halaman lain
+
+  const handleGoToDataGuru = () => {
+    navigate("/dataguru");
+  };
+
+  const handleGoToDataMurid = () => {
+    navigate("/datamurid");
+  };
+
   return (
-    <div style={{ padding: '20px', marginLeft: '240px', width: 'calc(100% - 240px)' }}>
-      <h2>Data Siswa dan Guru</h2>
-      <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '20px' }}>
-        <thead>
-          <tr>
-            <th style={{ border: '1px solid #ddd', padding: '8px', textAlign: 'left' }}>No</th>
-            <th style={{ border: '1px solid #ddd', padding: '8px', textAlign: 'left' }}>Nama Murid</th>
-            <th style={{ border: '1px solid #ddd', padding: '8px', textAlign: 'left' }}>Nama Guru</th>
-          </tr>
-        </thead>
-        <tbody>
-          {rows.map((row) => (
-            <tr key={row.no}>
-              <td style={{ border: '1px solid #ddd', padding: '8px' }}>{row.no}</td>
-              <td style={{ border: '1px solid #ddd', padding: '8px' }}>{row.namaMurid}</td>
-              <td style={{ border: '1px solid #ddd', padding: '8px' }}>{row.namaGuru}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
+    <>
+      <Navbar />
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+          minHeight: "100vh",
+          background: "linear-gradient(135deg, #2C3E50, #34495E)",
+          padding: { xs: 2, sm: 4 }, // Padding for small screens and larger screens
+          boxSizing: "border-box",
+        }}
+      >
+        <Typography
+          variant="h3"
+          gutterBottom
+          sx={{
+            fontFamily: "'Cinzel', serif",
+            fontWeight: "700",
+            color: "#F39C12",
+            textAlign: "center",
+            letterSpacing: 2,
+            marginBottom: 4,
+            textTransform: "uppercase",
+            fontSize: { xs: "2rem", sm: "3rem" }, // Adjust font size for small screens
+          }}
+        >
+          Welcome to Dashboard
+        </Typography>
+
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            gap: 3,
+            padding: 4,
+            borderRadius: "16px",
+            background: "rgba(255, 255, 255, 0.1)",
+            backdropFilter: "blur(10px)",
+            boxShadow: "0 15px 50px rgba(0, 0, 0, 0.2)",
+            width: "90%",
+            maxWidth: 500,
+          }}
+        >
+          <Button
+            variant="contained"
+            sx={{
+              width: "100%", // Button takes full width
+              padding: "16px 24px",
+              background: "linear-gradient(135deg, #F39C12, #F1C40F)",
+              color: "#fff",
+              fontFamily: "'Poppins', sans-serif",
+              fontWeight: "700",
+              letterSpacing: 1.2,
+              fontSize: { xs: "1rem", sm: "1.2rem" }, // Adjust button text size for small screens
+              textTransform: "none",
+              borderRadius: "12px",
+            }}
+            onClick={handleGoToDataGuru}
+            startIcon={<BusinessCenterIcon />}
+          >
+            Teacher Data
+          </Button>
+
+          <Button
+            variant="contained"
+            sx={{
+              width: "100%", // Button takes full width
+              padding: "16px 24px",
+              background: "linear-gradient(135deg, #C0392B, #E74C3C)",
+              color: "#fff",
+              fontFamily: "'Poppins', sans-serif",
+              fontWeight: "700",
+              letterSpacing: 1.2,
+              fontSize: { xs: "1rem", sm: "1.2rem" }, // Adjust button text size for small screens
+              textTransform: "none",
+              borderRadius: "12px",
+            }}
+            onClick={handleGoToDataMurid}
+            startIcon={<PeopleIcon />}
+          >
+            Student Data
+          </Button>
+        </Box>
+      </Box>
+    </>
   );
 };
 

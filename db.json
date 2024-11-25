@@ -1,12 +1,60 @@
 {
+  "Guru": [
+    {
+      "namaGuru": "Ibu kurniawati",
+      "mataPelajaran": "Ilmu Pengetahuan Alam",
+      "gender": "Perempuan",
+      "jabatan": "Ibu Kesiswaan",
+      "id": "1"
+    },
+    {
+      "id": "2",
+      "no": 2,
+      "namaGuru": "Ibu Nurlihana",
+      "mataPelajaran": "Ilmu Pengetahuan Alam",
+      "gender": "Perempuan",
+      "jabatan": "Kepala Sekolah"
+    },
+    {
+      "id": "3",
+      "no": 3,
+      "namaGuru": "Bapak Naryo",
+      "mataPelajaran": "Bahasa Indonesia",
+      "gender": "Laki-Laki",
+      "jabatan": "Guru BK"
+    }
+  ],
   "murids": [
     {
-      "id": "1",
-      "no": "1",
-      "namaMurid": "Izzul",
-      "Kelas": "X",
-      "Jurusan": "TKJ",
-      "AsalSekolah": "SMK Binus"
+      "namaMurid": "Izzul Fahmi Haqiqi",
+      "kelas": 10,
+      "jurusan": "TKJ",
+      "asalsekolah": "Smk Binus Mranggen",
+      "id": "2"
+    },
+    {
+      "id": "2",
+      "no": 2,
+      "namaMurid": "Surya tanjung",
+      "kelas": 10,
+      "jurusan": "TKJ",
+      "asalsekolah": "Smk Binus Mranggen"
+    },
+    {
+      "id": "3",
+      "no": 3,
+      "namaMurid": "Dimas Prasetyo W",
+      "kelas": 10,
+      "jurusan": "TKJ",
+      "asalsekolah": "Smk Binus Mranggen"
+    },
+    {
+      "id": "4",
+      "no": 4,
+      "namaMurid": "Brian Pratama",
+      "kelas": 10,
+      "jurusan": "TKJ",
+      "asalsekolah": "Smk Binus Mranggen"
     }
   ]
 }
